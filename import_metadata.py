@@ -22,6 +22,7 @@ def get_secret(setting, secrets=secrets):
         print(error_msg)
         sys.exit()
 
+
 def create_database():
     db = dataset.connect('postgresql://' + DB_USER + ':' + DB_PASS + '@' +
                          DB_HOST + ':' + DB_PORT + '/' + DB_NAME)
@@ -55,7 +56,7 @@ with open("fotos.csv", "r") as handle:
 items = []
 for line in fotos:
     line = line.strip()
-    fields = line.split('\t')
+    fields = line.split('||')
     item = {
         'foto_imagen': fields[1],
         'foto_descripcion': fields[2],
