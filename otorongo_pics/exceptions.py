@@ -1,0 +1,2 @@
+class NoTwitterToken(Exception):
+    pass
