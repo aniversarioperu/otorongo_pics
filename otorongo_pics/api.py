@@ -16,34 +16,36 @@ class Bot(object):
 
     """
     def __init__(self):
-        self.table = config.DB_NAME
+        self.table_name = config.DB_NAME
+        self.table = None
         self.pics = None
         self.twitter = Twython(config.key, config.secret, config.token, config.token_secret)
 
     def get_pics(self):
         db = utils.get_database()
-        query = "SELECT * FROM " + self.table + " WHERE random() < 0.01 "
+        query = "SELECT * FROM " + self.table_name + " WHERE random() < 0.01 "
         query += " AND posted IS DISTINCT FROM 'yes' limit 5"
         res = db.query(query)
         print("5 pics where selected")
         self.pics = res
+        self.table = db[self.table_name]
 
     def post_pics(self):
         for pic in self.pics:
             year = get_date(pic['foto_fecha'])
-            print(year)
             if year is not False:
                 tuit = year + ': '
                 tuit += pic['foto_descripcion'][0:84]
                 tuit += ' ' + pic['foto_pagina']
 
             filename = get_photo(pic['foto_imagen'])
-            print(filename)
             if filename is not False:
                 photo = open(filename, 'rb')
                 print(tuit)
                 print(filename)
-                self.twitter.update_status_with_media(status=tuit, media=photo)
+                self.twitter.update_media(status=tuit, media=photo)
+                data = dict(id=pic['id'], posted='yes')
+                self.table.update(data, ['id'])
 
 
 def get_photo(url):
