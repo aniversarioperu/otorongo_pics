@@ -43,7 +43,7 @@ class Bot(object):
                 photo = open(filename, 'rb')
                 print(tuit)
                 print(filename)
-                self.twitter.update_media(status=tuit, media=photo)
+                self.twitter.update_status_with_media(status=tuit, media=photo)
                 data = dict(id=pic['id'], posted='yes')
                 self.table.update(data, ['id'])
 
