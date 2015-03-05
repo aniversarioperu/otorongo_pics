@@ -31,4 +31,10 @@ secret = get_secret('twitter_secret')
 token = get_secret('twitter_token')
 token_secret = get_secret('twitter_token_secret')
 
+DB_USER = get_secret('DB_USER')
+DB_PASS = get_secret('DB_PASS')
+DB_NAME = get_secret('DB_NAME')
+DB_PORT = get_secret('DB_PORT')
+DB_HOST = get_secret('DB_HOST')
+
 base_folder = os.path.dirname(__file__)
