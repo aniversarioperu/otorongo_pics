@@ -24,13 +24,14 @@ class Bot(object):
     def get_pics(self):
         db = utils.get_database()
         query = "SELECT * FROM " + self.table_name + " WHERE random() < 0.01 "
-        query += " AND posted IS DISTINCT FROM 'yes' limit 5"
+        query += " AND posted IS DISTINCT FROM 'yes' limit 15"
         res = db.query(query)
         print("5 pics where selected")
         self.pics = res
         self.table = db[self.table_name]
 
     def post_pics(self):
+        count = 0
         for pic in self.pics:
             year = get_date(pic['foto_fecha'])
             if year is not False:
@@ -40,12 +41,15 @@ class Bot(object):
 
             filename = get_photo(pic['foto_imagen'])
             if filename is not False:
+                if count == 2:
+                    break
                 photo = open(filename, 'rb')
                 print(tuit)
                 print(filename)
                 self.twitter.update_status_with_media(status=tuit, media=photo)
                 data = dict(id=pic['id'], posted='yes')
                 self.table.update(data, ['id'])
+                count += 1
 
 
 def get_photo(url):
