@@ -58,6 +58,7 @@ def get_photo(url):
     if os.path.isfile(filename):
         return filename
     else:
+        print("could not find photo %s" % filename)
         return False
 
 
