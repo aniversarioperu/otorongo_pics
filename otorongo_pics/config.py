@@ -2,6 +2,8 @@ import json
 import os
 import sys
 
+from path import Path
+
 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 SECRETS_FILE = os.path.join(BASE_DIR, 'config.json')
@@ -37,4 +39,5 @@ DB_NAME = get_secret('DB_NAME')
 DB_PORT = get_secret('DB_PORT')
 DB_HOST = get_secret('DB_HOST')
 
-base_folder = os.path.dirname(__file__)
+base_folder = Path(__file__)
+pics_folder = os.path.join(base_folder.parent.parent, 'pics')

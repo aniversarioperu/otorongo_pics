@@ -54,7 +54,7 @@ class Bot(object):
 
 def get_photo(url):
     photo = re.search('.+/(.+\.jpg)$', url).groups()[0]
-    filename = os.path.join('pics', photo)
+    filename = os.path.join(config.pics_folder, photo)
     if os.path.isfile(filename):
         return filename
     else:
