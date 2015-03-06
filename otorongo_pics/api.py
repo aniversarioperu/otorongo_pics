@@ -41,7 +41,7 @@ class Bot(object):
 
             filename = get_photo(pic['foto_imagen'])
             if filename is not False:
-                if count == 2:
+                if count == 1:
                     break
                 photo = open(filename, 'rb')
                 print(tuit)
