@@ -2,10 +2,8 @@ import datetime
 import os
 import re
 
-import dataset
 from twython import Twython
 
-from . import twitter
 from . import utils
 from . import config
 
@@ -23,7 +21,7 @@ class Bot(object):
 
     def get_pics(self):
         db = utils.get_database()
-        query = "SELECT * FROM " + self.table_name + " WHERE random() < 0.01 "
+        query = "SELECT * FROM " + self.table_name + " WHERE random() < 0.001 "
         query += " AND posted IS DISTINCT FROM 'yes' limit 15"
         res = db.query(query)
         print("5 pics where selected")
